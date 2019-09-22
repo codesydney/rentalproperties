@@ -1,0 +1,9 @@
+*.pyc
+*.db
+env
+secret.txt
+.tar.gz
+runenv.bat
+.env
+__pycache__
+static/rental/

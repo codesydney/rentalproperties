@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Jewish House - rental property generator">
+        <title>{% block title %}{% endblock %}</title>
+        <!-- Font Awesome -->
+        <script src="{{ url_for('static', filename='scripts/fa/all.js') }}"></script>
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/app.css') }}" type="text/css">
+        <!-- Custom Javascript -->
+        {% block scripts %}
+        {% endblock %}
+    </head>
+    <body>
+        <div class="page-container">
+            <header class="head-section">
+                <h1>Rental Properties</h1>
+                <nav class="site-nav">
+
+                </nav>
+            </header>
+
+            <main class="main-section">
+                {% block content %}
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert-msg msg-{{ category }}">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    {% block app_content %}{% endblock %}
+                {% endblock %}
+            </main>
+
+            <footer class="footer-section">
+                <small>Website by <a href="http://code.sydney">code.sydney</a></small>
+            </footer>
+        </div>
+    </body>
+</html>

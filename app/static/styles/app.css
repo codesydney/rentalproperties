@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: arial, serif;
+    font-size: 15px;
+}
+
+body {
+    background-color: #EFEFEF;
+    color: #000000;
+}
+
+h1 {font-size: 36px;}
+h2 {font-size: 30px;}
+h3 {font-size: 22px;}
+h1, h2, h3, h4, h5 {color: #333333;}
+h2, h3, h4, h5 {margin-bottom: 1.0rem;}
+p, table, ul li:last-of-type {margin-bottom: 0.8rem;}
+a {color:#4B3BAF; text-decoration: none;}
+a:hover {color:#E87314;}
+
+/*** Page wrapper ***/
+.page-container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+/*** Header section ***/
+.head-section {
+    padding: 10px 30px 10px 30px;
+    background-color: #3A1F75;
+    margin-bottom: 1.4rem;
+}
+
+.head-section h1 {
+    color: #ffffff;
+}
+
+/*** Main Section ***/
+.main-section {
+    padding: 10px 30px 10px 30px;
+    flex-grow: 1;
+    align-self: flex-start;
+    padding-bottom: 4rem;
+    width: 100%;
+}
+
+/*** Forms ***/
+.formgrid, .formstacked {
+    display: grid;
+    grid-gap: 0.5em 2.0em;
+    grid-auto-flow: dense;
+    align-items: start;
+    justify-items: start;
+    grid-template-columns: auto;
+    width: 100%;
+}
+.formgrid label, .formstacked label {
+    grid-column: 1 / 2;
+}
+input[type=text], input[type=password], textarea, select {
+    outline: none;
+    border: 1px solid #cccccc;
+    padding: 2px;
+
+}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {
+    outline: solid #E8731450;
+}
+.formgrid input, .formgrid textarea, .formgrid select, .formgrid button,
+.formstacked input, .formstacked textarea, .formstacked select, .formstacked button,
+.g-recaptcha, .form-group {
+    grid-column: 1 / 2;
+    font-family: inherit;
+    font-size: 100%;
+    width: 100%;
+}
+.formgrid input[type=submit] {
+    font-family: inherit;
+    font-size: 100%;
+    width: 7rem;
+}
+.formgrid input[type=checkbox] {
+    height: 1.0rem;
+    width: 1.0rem;
+}
+
+/*** Tables ***/
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    padding: 0.3rem;
+    text-align: left;
+}
+.table-stripe tr:nth-child(even) {
+    background-color: #DDDDDD;
+}
+
+/*** Footer section ***/
+.footer-section {
+    padding: 40px 0 40px 0;
+    background-color: #BBBBBB;
+    text-align: center;
+    flex-shrink: 0;
+}
+.footer-section a {
+    color: #000000;
+}
+.footer-section a:hover {
+    color: #00000050;
+}
+
+
+/*** Desktop screen size ***/
+@media only screen and (min-width: 768px) {
+    .formgrid {
+        grid-template-columns: auto 1fr;
+    }
+    .formgrid label {
+        grid-column: 1/2;
+    }
+    .formgrid input, .formgrid textarea, .formgrid select, .formgrid button,
+    .g-recaptcha, .form-group {
+        grid-column: 2/3;
+        max-width: 700px;
+    }
+}

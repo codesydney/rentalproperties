@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Rental property generator - results{% endblock %}
+
+{% block app_content %}
+<p><a href='{{ url_for('main.index') }}'>Go back to Search</a></p>
+
+<h2>Results</h2>
+
+<p>Currently maximum 200 rental listings returned</p>
+
+<p><a href="{{ url_for('static', filename='rental/test.csv') }}"><i class="fas fa-file-csv"></i> Download Excel report (csv)</a></p>
+
+<table class="table-stripe">
+<tr>
+    <th>Headline</th>
+    <th>Type</th>
+    <th>Price</th>
+    <th>Address</th>
+    <th>Bedroom</th>
+    <th>Bathroom</th>
+</tr>
+{% for d in data %}
+    <tr>
+        <td>{{ d['listing']['headline'] }}</td>
+        <td>{{ d['listing']['propertyDetails']['propertyType'] }}</td>
+        <td>{{ d['listing']['priceDetails']['displayPrice'] }}</td>
+        <td>{{ d['listing']['propertyDetails']['displayableAddress'] }}</td>
+        <td>{{ d['listing']['propertyDetails']['bedrooms'] | int }}</td>
+        <td>{{ d['listing']['propertyDetails']['bathrooms'] | int }}</td>
+        <td><a href="http://www.domain.com.au/{{ d['listing']['listingSlug'] }}">View listing</a></td>
+    </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

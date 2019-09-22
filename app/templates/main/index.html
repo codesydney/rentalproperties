@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Rental property generator{% endblock %}
+
+{% block app_content %}
+
+<h2>Search Domain</h2>
+<p><small><i>* denotes mandatory</i></small></p>
+
+<form action="{{ url_for('main.index') }}"  method="post">
+    <div class="formgrid">
+        {{ form.csrf_token }}
+
+        {{ form.min_bedrooms.label }}
+        <div class="form-group">
+            {% for error in form.min_bedrooms.errors %}
+                <span class="error-msg">[ {{ error }} ]</span>
+            {% endfor %}
+            {{ form.min_bedrooms }}
+        </div>
+
+        {{ form.min_bathrooms.label }}
+        <div class="form-group">
+            {% for error in form.min_bathrooms.errors %}
+                <span class="error-msg">[ {{ error }} ]</span>
+            {% endfor %}
+            {{ form.min_bathrooms }}
+        </div>
+
+        {{ form.max_price.label }}
+        <div class="form-group">
+            {% for error in form.max_price.errors %}
+                <span class="error-msg">[ {{ error }} ]</span>
+            {% endfor %}
+            {{ form.max_price }}
+        </div>
+
+        {{ form.postcode.label }}
+        <div class="form-group">
+            {% for error in form.postcode.errors %}
+                <span class="error-msg">[ {{ error }} ]</span>
+            {% endfor %}
+            {{ form.postcode }}
+        </div>
+
+        {{ form.submit }}
+    </div>
+</form>
+
+{% endblock %}
