@@ -6,7 +6,7 @@
 
 <h2>Results</h2>
 
-<p>Currently maximum 200 rental listings returned</p>
+<p>{{ data|length }} results returned</p>
 
 <p><a href="{{ url_for('static', filename='rental/test.csv') }}"><i class="fas fa-file-csv"></i> Download Excel report (csv)</a></p>
 

@@ -1,8 +1,19 @@
-from flask import render_template, redirect, url_for, flash, request, current_app
+from flask import render_template, redirect, url_for, flash, request, current_app, g
 from app.main import bp
 from app.main.forms import SearchForm
-from app import domain
 import pandas as pd
+from datetime import datetime, timedelta
+from authlib.client import OAuth2Session
+
+
+def get_token():
+    scope='api_listings_read'
+    session = OAuth2Session(current_app.config['DOMAIN_CLIENT_ID'], current_app.config['DOMAIN_CLIENT_SECRET'], scope=scope)
+    token = session.fetch_access_token('https://auth.domain.com.au/v1/connect/token', grant_type='client_credentials')
+    now = datetime.now()
+    # give a 900 second (15 min) leeway
+    later = now + timedelta(seconds=token['expires_in']-900)
+    g.domain = {'session':session, 'expiry_time':later}
 
 
 @bp.route('/')
@@ -10,6 +21,12 @@ import pandas as pd
 def index():
     form=SearchForm()
     if form.validate_on_submit():
+        # get token if first time
+        if 'domain' not in g:
+            get_token()
+        # get token if expired
+        if datetime.now() >= g.domain['expiry_time']:
+            get_token()
 
         # build data from search filters to send to domain
         data = dict()
@@ -41,7 +58,7 @@ def index():
         print(data)
 
         # send a post request to domain api with json data
-        resp=domain.post('https://api.domain.com.au/v1/listings/residential/_search',json=data)
+        resp=g.domain['session'].post('https://api.domain.com.au/v1/listings/residential/_search',json=data)
 
         # construct pandas dataframe and save to csv
         df = pd.DataFrame(columns=[\
