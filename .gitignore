@@ -6,4 +6,3 @@ secret.txt
 runenv.bat
 .env
 __pycache__
-/app/static/rental/*

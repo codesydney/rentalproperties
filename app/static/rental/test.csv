@@ -1,0 +1,4 @@
+Property type,Price,Suburb,Postcode,Display address,Bedrooms,Bathrooms,Carspaces,Headline,url,Advert type,Advert name,Advert contact
+House,$55,NEWTOWN,2042,"CARSPACE/123-123A King Street, Newtown",1.0,,1,Tandem Car Space Available,http://www.domain.com.au/carspace-123-123a-king-street-newtown-nsw-2042-13577955,Agency,Raine & Horne Newtown,[{'name': 'Capri Ford'}]
+CarSpace,$55 to $60 per week,NEWTOWN,2042,"130 Carillon Avenue, Newtown",,,1,Car Space For Rent Close to RPA Hospital,http://www.domain.com.au/130-carillon-avenue-newtown-nsw-2042-13352798,Agency,Raine & Horne Broadway,[{'name': 'Vijay Kumar'}]
+Studio,$50 weekly,NEWTOWN,2042,"88 King Street, Newtown",,1.0,1,Security Car space,http://www.domain.com.au/88-king-street-newtown-nsw-2042-13172746,Agency,Traversgray Real Estate,"[{'name': 'Billy Bingham', 'photoUrl': 'https://images.domain.com.au/img/18534/contact_1629160.jpeg?mod=191001-090311'}]"

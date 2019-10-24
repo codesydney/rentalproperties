@@ -14,8 +14,20 @@ def get_token():
     # later = now + timedelta(seconds=token['expires_in']-900)
     return token
 
+
 def get_session(token):
     return OAuth2Session(current_app.config['DOMAIN_CLIENT_ID'], current_app.config['DOMAIN_CLIENT_SECRET'], token=token)
+
+
+# In case key does not exist in JSON, then return an empty string
+def get_data(data, key):
+    if key in data:
+        #print(data[key])
+        return data[key]
+    else:
+        #print('')
+        return ''
+
 
 @bp.route('/')
 @bp.route('/index', methods=['GET','POST'])
@@ -68,28 +80,29 @@ def index():
         # construct pandas dataframe and save to csv
         df = pd.DataFrame(columns=[\
         'Property type', 'Price', 'Suburb','Postcode','Display address','Bedrooms',\
-        'Bathrooms','Headline',\
+        'Bathrooms','Carspaces','Headline',\
         'url','Advert type','Advert name','Advert contact'\
         ])
         json_resp = resp.json()
 
         for j in json_resp:
             df = df.append({\
-                'Property type': j['listing']['propertyDetails']['propertyType'],
-                'Price': j['listing']['priceDetails']['displayPrice'],
-                'Suburb': j['listing']['propertyDetails']['suburb'],\
-                'Postcode': j['listing']['propertyDetails']['postcode'],\
-                'Display address' : j['listing']['propertyDetails']['displayableAddress'],\
-                'Bedrooms': j['listing']['propertyDetails']['bedrooms'],\
-                'Bathrooms': j['listing']['propertyDetails']['bathrooms'],\
-                'Headline': j['listing']['headline'],\
-                'url': 'http://www.domain.com.au/'+j['listing']['listingSlug'],\
-                'Advert type': j['listing']['advertiser']['type'],\
-                'Advert name': j['listing']['advertiser']['name'],\
-                'Advert contact': j['listing']['advertiser']['contacts']\
+                'Property type': get_data(data=j['listing']['propertyDetails'], key='propertyType'),\
+                'Price': get_data(data=j['listing']['priceDetails'], key='displayPrice'),\
+                'Suburb': get_data(data=j['listing']['propertyDetails'], key='suburb'),\
+                'Postcode': get_data(data=j['listing']['propertyDetails'], key='postcode'),\
+                'Display address' : get_data(data=j['listing']['propertyDetails'], key='displayableAddress'),\
+                'Bedrooms': get_data(data=j['listing']['propertyDetails'], key='bedrooms'),\
+                'Bathrooms': get_data(data=j['listing']['propertyDetails'], key='bathrooms'),\
+                'Carspaces': get_data(data=j['listing']['propertyDetails'], key='carspaces'),\
+                'Headline': get_data(data=j['listing'], key='headline'),\
+                'url': 'http://www.domain.com.au/'+get_data(data=j['listing'], key='listingSlug'),\
+                'Advert type': get_data(data=j['listing']['advertiser'], key='type'),\
+                'Advert name': get_data(data=j['listing']['advertiser'], key='name'),\
+                'Advert contact': get_data(data=j['listing']['advertiser'], key='contacts')\
                 }, ignore_index=True)
 
         df.to_csv(current_app.config['RENTAL_FOLDER'] / 'test.csv', index=False)
-        return render_template('main/results.html',data=resp.json())
+        return render_template('main/results.html',data=df)
 
     return render_template('main/index.html',form=form)
